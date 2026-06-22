@@ -1,0 +1,23 @@
+{% raw %}#pragma once
+
+#include "driver/spi_master.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/** SPI bus and device handles */
+extern spi_device_handle_t spi_dev;
+
+/**
+ * @brief Initialize SPI bus and device.
+ *
+ * Default: SPI2_HOST (FSPI), 10 MHz, mode 0.
+ * Configure pins via menuconfig or modify below.
+ */
+void spi_driver_init(void);
+
+#ifdef __cplusplus
+}
+#endif{% endraw %}

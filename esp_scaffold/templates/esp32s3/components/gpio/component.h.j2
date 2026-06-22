@@ -1,0 +1,19 @@
+{% raw %}#pragma once
+
+#include "driver/gpio.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Initialize additional GPIO pins beyond the base config.
+ *
+ * Configure application-specific input/output pins here.
+ */
+void gpio_driver_init(void);
+
+#ifdef __cplusplus
+}
+#endif{% endraw %}

@@ -1,0 +1,31 @@
+#include "gpio_config.h"
+
+static const char *TAG = "gpio";
+
+void gpio_config_init(void)
+{
+    ESP_LOGI(TAG, "Initializing GPIO...");
+
+    /* Zero-initialize the GPIO configuration structure */
+    gpio_config_t io_conf = {};
+
+    /* Disable interrupt for all pins by default */
+    io_conf.intr_type = GPIO_INTR_DISABLE;
+
+    /* Configure as output for general-purpose use */
+    io_conf.mode = GPIO_MODE_OUTPUT;
+
+    /* Bit mask of the pins to set */
+    io_conf.pin_bit_mask = 0;
+
+    /* Disable pull-down mode */
+    io_conf.pull_down_en = 0;
+
+    /* Disable pull-up mode */
+    io_conf.pull_up_en = 0;
+
+    /* Configure the GPIO with the given settings */
+    gpio_config(&io_conf);
+
+    ESP_LOGI(TAG, "GPIO initialization complete");
+}

@@ -1,0 +1,20 @@
+#pragma once
+
+#include "driver/gpio.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Initialize all GPIO pins for the project.
+ *
+ * Configure pins based on selected peripherals.
+ * Called once during app_main startup.
+ */
+void gpio_config_init(void);
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "esp_log.h"
+#include "esp_err.h"
+#include "nvs_flash.h"
+#include "gpio_config.h"
+{% for p in peripherals %}
+#include "{{ p.name }}_driver.h"
+{% endfor %}
+
+static const char *TAG = "main";
+
+/* ── Task function declarations ── */
+{% for task in tasks %}
+static void {{ task.name }}(void *pvParameters);
+{% endfor %}
+
+/* ── app_main ── */
+void app_main(void)
+{
+    ESP_LOGI(TAG, "─── {{ project_name }} starting ───");
+    ESP_LOGI(TAG, "Chip: {{ chip }}");
+    ESP_LOGI(TAG, "FreeRTOS tasks: {{ num_tasks }}");
+{% if peripherals %}
+    ESP_LOGI(TAG, "Peripherals: {% for p in peripherals %}{{ p.name }} {% endfor %}");
+{% endif %}
+
+    /* Initialize NVS */
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    /* Initialize GPIO */
+    gpio_config_init();
+
+{% for p in peripherals %}
+    /* Initialize {{ p.name | upper }} */
+    {{ p.name }}_driver_init();
+{% endfor %}
+
+{% for task in tasks %}
+    /* Create {{ task.name }} */
+    xTaskCreate({{ task.name }}, "{{ task.name }}", {{ task.stack_size }},
+                NULL, {{ task.priority }}, NULL);
+{% endfor %}
+
+    ESP_LOGI(TAG, "─── All tasks created, scheduler running ───");
+}
+
+/* ── Task function skeletons ── */
+{% for task in tasks %}
+static void {{ task.name }}(void *pvParameters)
+{
+    ESP_LOGI("{{ task.name }}", "Task started (priority={{ task.priority }})");
+
+    while (1) {
+        /* TODO: Add your logic here */
+        vTaskDelay(pdMS_TO_TICKS({{ task.delay_ms }}));
+    }
+}
+{% endfor %}

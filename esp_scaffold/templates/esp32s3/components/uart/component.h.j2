@@ -1,0 +1,19 @@
+{% raw %}#pragma once
+
+#include "driver/uart.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Initialize UART (UART_NUM_1, 115200 8N1).
+ *
+ * Default pins: TX=GPIO_NUM_NUM, RX=GPIO_NUM_NUM (set in source).
+ */
+void uart_driver_init(void);
+
+#ifdef __cplusplus
+}
+#endif{% endraw %}

@@ -1,0 +1,19 @@
+{% raw %}#pragma once
+
+#include "driver/i2c.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Initialize I2C bus (I2C_NUM_0, 100 kHz).
+ *
+ * Default pins: SDA=GPIO_NUM_NUM, SCL=GPIO_NUM_NUM (set in source).
+ */
+void i2c_driver_init(void);
+
+#ifdef __cplusplus
+}
+#endif{% endraw %}

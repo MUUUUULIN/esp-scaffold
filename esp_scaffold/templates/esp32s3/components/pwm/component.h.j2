@@ -1,0 +1,20 @@
+{% raw %}#pragma once
+
+#include "driver/ledc.h"
+#include "esp_log.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Initialize PWM (LEDC) channels.
+ *
+ * Default: Timer 0, 5 kHz, 10-bit resolution.
+ * Configure channels via menuconfig or modify below.
+ */
+void pwm_driver_init(void);
+
+#ifdef __cplusplus
+}
+#endif{% endraw %}

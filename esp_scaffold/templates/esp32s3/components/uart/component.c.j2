@@ -1,0 +1,27 @@
+{% raw %}#include "uart_driver.h"
+
+static const char *TAG = "uart";
+
+#define UART_TX_PIN  (-1)  /* TODO: set your TX pin */
+#define UART_RX_PIN  (-1)  /* TODO: set your RX pin */
+#define UART_BAUD    115200
+
+void uart_driver_init(void)
+{
+    ESP_LOGI(TAG, "Initializing UART (UART_NUM_1)...");
+
+    uart_config_t uart_cfg = {
+        .baud_rate = UART_BAUD,
+        .data_bits = UART_DATA_8_BITS,
+        .parity    = UART_PARITY_DISABLE,
+        .stop_bits = UART_STOP_BITS_1,
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+    };
+
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_1, &uart_cfg));
+    ESP_ERROR_CHECK(uart_set_pin(UART_NUM_1, UART_TX_PIN, UART_RX_PIN,
+                                  UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_1, 2048, 0, 0, NULL, 0));
+
+    ESP_LOGI(TAG, "UART initialized successfully");
+}{% endraw %}

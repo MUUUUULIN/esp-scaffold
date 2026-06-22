@@ -1,0 +1,18 @@
+{% raw %}#include "gpio_driver.h"
+
+static const char *TAG = "gpio_ext";
+
+void gpio_driver_init(void)
+{
+    ESP_LOGI(TAG, "Initializing application GPIO...");
+
+    /* Example: configure an output pin */
+    // gpio_set_direction(GPIO_NUM_NUM, GPIO_MODE_OUTPUT);
+    // gpio_set_level(GPIO_NUM_NUM, 0);
+
+    /* Example: configure an input pin with pull-up */
+    // gpio_set_direction(GPIO_NUM_NUM, GPIO_MODE_INPUT);
+    // gpio_set_pull_mode(GPIO_NUM_NUM, GPIO_PULLUP_ONLY);
+
+    ESP_LOGI(TAG, "Application GPIO initialized");
+}{% endraw %}
